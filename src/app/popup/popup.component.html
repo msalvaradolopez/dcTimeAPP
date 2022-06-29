@@ -1,0 +1,27 @@
+<div class="contenedor">
+  <div class="popup">
+    <div class="pedido">
+      <i class="fa-solid fa-angle-left regresar" (click)="regresar()">
+        <span> Regresar</span></i
+      >
+      <p class="negrita">{{ _folio }}</p>
+      <p>{{ _cliente }}</p>
+      <p>{{ _fecha }}</p>
+      <br />
+      <div id="MyClockDisplay" class="clock" onload="showTime()">RELOJ</div>
+    </div>
+
+    <div class="galeria">
+      <div
+        *ngFor="let item of _surtidoresList"
+        class="popup-item"
+        [ngStyle]="{
+          'background-image': 'url(\'' + item.Foto + '\')'
+        }"
+        (click)="setSurtiendo(item.empID)"
+      >
+        <span class="imagen-texto"> {{ item.firstName }} </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="grid-mostrador" #mostrador>
+  <div class="cols-mostrador">
+    <p class="titulos">SURTIENDO</p>
+    <div class="cards-contenedor">
+      <div *ngFor="let item of surtiendoList" [ngClass]="item.class">
+        <p class="negrita folio">{{ item.Folio }}</p>
+        <div class="tiempo">
+          <p>{{ item.FechaSurtiendo | date: "shortTime" }}</p>
+          <p>{{ item.tiempo }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cols-mostrador">
+    <p class="titulos">CERRADO</p>
+    <div class="cards-contenedor">
+      <div *ngFor="let item of cerradoList" class="card-mostrador">
+        <p class="negrita folio">{{ item.Folio }}</p>
+        <p>{{ item.FechaCerrado | date: "shortTime" }}</p>
+      </div>
+    </div>
+  </div>
+
+  <video id="videoRef" #videoRef controls loop class="video">
+    <source src="{{ _video }}" type="video/mp4" />
+  </video>
+</div>
