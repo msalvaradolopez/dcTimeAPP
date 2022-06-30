@@ -15,8 +15,8 @@
 .video {
     border-radius: 10px;
     min-width: 100%;
-    min-height: 100vh;
-    max-height: 100vh;
+    min-height: 90vh;
+    max-height: 90vh;
     object-fit:fill;
 }
 
@@ -26,7 +26,6 @@
     height: 100%;
     color: white;
     margin: 0px 0px 20px 0px;
-    padding: 10px 10px;
 
     font-size: large;
 }
@@ -42,4 +41,14 @@
     align-items: center;
     
     overflow: auto;
+}
+
+.tiempo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.columna-tres {
+    max-height: 100%;
 }

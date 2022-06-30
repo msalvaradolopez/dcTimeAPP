@@ -29,7 +29,8 @@
               "src/assets/css/almacenTime.css",
               "src/assets/css/popup.css",
               "src/assets/css/clock.css",
-              "src/assets/css/mostradorTime.css"
+              "src/assets/css/mostradorTime.css",
+              "src/assets/css/banner.css"
             ],
             "scripts": []
           },

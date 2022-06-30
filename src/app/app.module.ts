@@ -9,6 +9,7 @@ import { AlmacenTimeComponent } from './almacen-time/almacen-time.component';
 import { MostradorTimeComponent } from './mostrador-time/mostrador-time.component';
 import { PopupComponent } from './popup/popup.component';
 import { WebappComponent } from './webapp/webapp.component';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { WebappComponent } from './webapp/webapp.component';
     AlmacenTimeComponent,
     MostradorTimeComponent,
     PopupComponent,
-    WebappComponent
+    WebappComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,
