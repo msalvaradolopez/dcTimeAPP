@@ -84,6 +84,8 @@ export class MostradorTimeComponent implements OnInit {
   }
 
   tiempoCorriendo(item: any) {
+    // console.log("item :", item);
+
     var fechaHoraAux = item.FechaSurtiendo.split(" ");
     var soloFechaAux = fechaHoraAux[0].split("-");
     var nuevaFechaAux = new Date(soloFechaAux[2], soloFechaAux[1], soloFechaAux[0], fechaHoraAux[1]);
@@ -99,6 +101,7 @@ export class MostradorTimeComponent implements OnInit {
         , elapsed = now.getTime()  - startDate.getTime() 
         , parts = [];
 
+    // console.log("now :", now);
     parts[0] = '' + Math.floor( elapsed / one_hour );
     parts[1] = '' + Math.floor( (elapsed % one_hour) / one_minute );
     parts[2] = '' + Math.floor( ( (elapsed % one_hour) % one_minute ) / one_second );

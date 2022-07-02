@@ -22,9 +22,13 @@ export class BannerComponent implements OnInit {
       this.bannerListAux = x;
 
       if(this.bannerListAux) {
+        let addLinea: boolean = false;
+        let textoLargo = this.bannerListAux.filter(x => x.texto.length > 100);
         this.bannerListAux.forEach(renglon => {
             this.bannerList.push(renglon.texto);
             this.bannerList.push("");
+            if(textoLargo.length > 0)
+              this.bannerList.push("");
         });
       }
     }
@@ -35,8 +39,6 @@ export class BannerComponent implements OnInit {
   }
 
   bannerRun () {
-    console.log("bannerRun");
-
     const root = document.documentElement;
     const marqueeElementsDisplayed = parseInt(getComputedStyle(root).getPropertyValue("--marquee-elements-displayed"));
     const marqueeContent = document.querySelector("ul.marquee-content");

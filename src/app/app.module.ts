@@ -10,6 +10,8 @@ import { MostradorTimeComponent } from './mostrador-time/mostrador-time.componen
 import { PopupComponent } from './popup/popup.component';
 import { WebappComponent } from './webapp/webapp.component';
 import { BannerComponent } from './banner/banner.component';
+import { HeaderComponent } from './header/header.component';
+import { ConsultasComponent } from './consultas/consultas.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { BannerComponent } from './banner/banner.component';
     MostradorTimeComponent,
     PopupComponent,
     WebappComponent,
-    BannerComponent
+    BannerComponent,
+    HeaderComponent,
+    ConsultasComponent
   ],
   imports: [
     BrowserModule,
