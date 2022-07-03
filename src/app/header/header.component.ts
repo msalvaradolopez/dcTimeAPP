@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ServiciosService } from '../servicios.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  _menu: Subscription;
+  activarMenu: boolean = false;
+
+  constructor(private _servicios: ServiciosService) { }
 
   ngOnInit(): void {
+    this._menu = this._servicios.menu$
+    .subscribe(resp => resp ?  this.activarMenu = true : this.activarMenu = false);
   }
 
 }

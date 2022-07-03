@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
+import { ServiciosService } from '../servicios.service';
 
 @Component({
   selector: 'app-webapp',
@@ -9,23 +10,38 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class WebappComponent implements OnInit {
 
-  constructor(private _router: Router, private _query: ActivatedRoute) {}
+  constructor(private _servicios: ServiciosService, private _router: Router, private _query: ActivatedRoute) {}
 
   ngOnInit(): void {
 
     this._query.queryParams.subscribe(params => {
-      if (params.id == "M")
+      if (params.id == "M") {
         this._router.navigate(["/mostradorTime"]);
-      else
+        this._servicios.menuAccion(false);
+      }
+      else if(params.id == "A") {
         this._router.navigate(["/almacenTime"]);
+        this._servicios.menuAccion(false);
+      }
+        else if(this._query.snapshot.queryParams.id == "ADM") {
+          this._router.navigate(["/consultas"]);
+          this._servicios.menuAccion(true);
+        }
     });
 
-    if(this._query.snapshot.queryParams.id == "M")
-        this._router.navigate(["/mostradorTime"]);
-    else
-        this._router.navigate(["/almacenTime"]);
-
-
+    if(this._query.snapshot.queryParams.id == "M"){
+      this._router.navigate(["/mostradorTime"]);
+      this._servicios.menuAccion(false);
+    }
+    else if(this._query.snapshot.queryParams.id == "A"){
+      this._router.navigate(["/almacenTime"]);
+      this._servicios.menuAccion(false);
+    }
+    else if(this._query.snapshot.queryParams.id == "ADM") {
+      this._router.navigate(["/consultas"]);
+      this._servicios.menuAccion(true);
+    }
+        
   }
 
 
