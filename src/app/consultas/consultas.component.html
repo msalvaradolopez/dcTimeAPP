@@ -1,14 +1,18 @@
 <div class="content-catalogos">
-  <div>
-    <h1>Choose a book format</h1>
+  <div class="filtros">
+    <h1>Filtros:</h1>
     <div class="select">
-      <select name="format" id="format">
-        <option selected disabled>Choose a book format</option>
-        <option value="pdf">PDF</option>
-        <option value="txt">txt</option>
-        <option value="epub">ePub</option>
-        <option value="fb2">fb2</option>
-        <option value="mobi">mobi</option>
+      <select name="annio" id="annio" [(ngModel)]="annioSelected" (change)="cambiosFiltros()">
+        <option *ngFor="let annio of rangoAnnios" [ngValue]="annio">
+          {{ annio }}
+        </option>
+      </select>
+    </div>
+    <div class="select">
+      <select name="mes" id="mes" [(ngModel)]="mesSelected" (change)="cambiosFiltros()">
+        <option *ngFor="let mes of rangoMeses" [ngValue]="mes.idMes">
+          {{ mes.nomMes }}
+        </option>
       </select>
     </div>
   </div>
@@ -45,7 +49,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of conPorSurtidorList" (click)="getConGeneralPorSurtidor(item.empID)">
+          <tr
+            *ngFor="let item of conPorSurtidorList"
+            (click)="getConGeneralPorSurtidor(item.empID)"
+          >
             <td>{{ item.surtidor }}</td>
             <td>{{ item.porSurtir }}</td>
             <td>{{ item.surtiendo }}</td>

@@ -197,3 +197,11 @@ td {
   
 }
 
+.filtros {
+  display: flex;
+  flex-direction: row;
+  width: 350px;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 10px;
+}
