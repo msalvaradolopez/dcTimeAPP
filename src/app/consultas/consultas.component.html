@@ -13,7 +13,79 @@
     </div>
   </div>
   <div class="content-indicadores">
-    <div class="consultas-indicadores"></div>
-    <div class="consultas-indicadores"></div>
+    <div class="consultas-indicadores">
+      <table class="table-indicadores">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>por Surtir</th>
+            <th>Surtiendo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of conPorDiasList"
+            (click)="getConGeneralPorDia(item.fechaOrigen)"
+          >
+            <td>{{ item.fechaOrigen | date: "dd/MM/yyyy" }}</td>
+            <td>{{ item.porSurtir }}</td>
+            <td>{{ item.surtiendo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="consultas-indicadores">
+      <table class="table-indicadores">
+        <thead>
+          <tr>
+            <th>Surtidor</th>
+            <th>por Surtir</th>
+            <th>Surtiendo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of conPorSurtidorList" (click)="getConGeneralPorSurtidor(item.empID)">
+            <td>{{ item.surtidor }}</td>
+            <td>{{ item.porSurtir }}</td>
+            <td>{{ item.surtiendo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+    <div class="consultas-detalle">
+      <table class="table-indicadores">
+        <thead>
+          <tr>
+            <th>Folio</th>
+            <th>Estatus</th>
+            <th>Fecha</th>
+            <th>Mins por Surtir</th>
+            <th>Surtiendo</th>
+            <th>Mins Surtiendo</th>
+            <th>Cerrado</th>
+            <th>Surtidor</th>
+            <th>Cliente</th>
+            <th>Ventas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of conGeneralList">
+            <td>{{ item.folio }}</td>
+            <td>{{ item.statusText }}</td>
+            <td style="width: 40px">{{ item.fecha | date: "dd/MM HH:mm" }}</td>
+            <td>{{ item.porSurtir }}</td>
+            <td>{{ item.fechaSurtiendo | date: "HH:mm" }}</td>
+            <td>{{ item.surtiendo }}</td>
+            <td>{{ item.fechaCerrado | date: "HH:mm" }}</td>
+            <td>{{ item.firstName }}</td>
+            <td>{{ item.socio }}</td>
+            <td>{{ item.SlpName }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
