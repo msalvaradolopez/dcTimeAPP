@@ -9,11 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'dcTimeApp';
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     
   }
-
 
 }

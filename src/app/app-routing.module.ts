@@ -4,6 +4,7 @@ import { AlmacenTimeComponent } from './almacen-time/almacen-time.component';
 import { ConsultasComponent } from './consultas/consultas.component';
 import { MostradorTimeComponent } from './mostrador-time/mostrador-time.component';
 import { PopupComponent } from './popup/popup.component';
+import { SurtidoresComponent } from './surtidores/surtidores.component';
 import { WebappComponent } from './webapp/webapp.component';
 
 
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: "mostradorTime", component: MostradorTimeComponent},
   {path: "popup", component: PopupComponent},
   {path: "webapp", component: WebappComponent},
-  {path: "consultas", component: ConsultasComponent}
+  {path: "consultas", component: ConsultasComponent},
+  {path: "surtidores", component: SurtidoresComponent}
 ];
 
 @NgModule({

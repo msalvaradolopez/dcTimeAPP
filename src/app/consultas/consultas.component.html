@@ -2,14 +2,24 @@
   <div class="filtros">
     <h1>Filtros:</h1>
     <div class="select">
-      <select name="annio" id="annio" [(ngModel)]="annioSelected" (change)="cambiosFiltros()">
+      <select
+        name="annio"
+        id="annio"
+        [(ngModel)]="annioSelected"
+        (change)="cambiosFiltros()"
+      >
         <option *ngFor="let annio of rangoAnnios" [ngValue]="annio">
           {{ annio }}
         </option>
       </select>
     </div>
     <div class="select">
-      <select name="mes" id="mes" [(ngModel)]="mesSelected" (change)="cambiosFiltros()">
+      <select
+        name="mes"
+        id="mes"
+        [(ngModel)]="mesSelected"
+        (change)="cambiosFiltros()"
+      >
         <option *ngFor="let mes of rangoMeses" [ngValue]="mes.idMes">
           {{ mes.nomMes }}
         </option>

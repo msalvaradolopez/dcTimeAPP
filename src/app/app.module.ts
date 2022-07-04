@@ -13,6 +13,7 @@ import { WebappComponent } from './webapp/webapp.component';
 import { BannerComponent } from './banner/banner.component';
 import { HeaderComponent } from './header/header.component';
 import { ConsultasComponent } from './consultas/consultas.component';
+import { SurtidoresComponent } from './surtidores/surtidores.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ConsultasComponent } from './consultas/consultas.component';
     WebappComponent,
     BannerComponent,
     HeaderComponent,
-    ConsultasComponent
+    ConsultasComponent,
+    SurtidoresComponent
   ],
   imports: [
     BrowserModule,

@@ -141,6 +141,32 @@ body {
   White-space: nowrap;
 }
 
+.table-surtidores {
+  border-radius:3px;
+  border-collapse: collapse;
+  margin: auto;
+  padding:5px;
+  width: 100%;
+  background: linear-gradient(rgba(71, 70, 70, 0.425), rgba(10, 10, 10, 0.562));
+  color:#D5DDE5;;
+}
+
+.table-foto {
+  display: flex;
+  align-items: center;
+
+  background-color: #03afff;
+  border-radius: 50%;
+  transition: transform 0.3s ease-in-out;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+  object-fit:fill;
+}
+
 .consultas-indicadores {
   min-height: 250;
   max-height: 250px;
@@ -204,4 +230,9 @@ td {
   justify-content: space-around;
   align-items: center;
   padding: 10px 10px;
+}
+
+.consulta-surtidores {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  animation: float 5s infinite;
 }

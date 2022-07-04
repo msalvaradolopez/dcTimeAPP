@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ServiciosService } from '../servicios.service';
 
@@ -7,7 +7,7 @@ import { ServiciosService } from '../servicios.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy{
 
   _menu: Subscription;
   activarMenu: boolean = false;
@@ -19,4 +19,7 @@ export class HeaderComponent implements OnInit {
     .subscribe(resp => resp ?  this.activarMenu = true : this.activarMenu = false);
   }
 
+  ngOnDestroy(): void {
+    this._menu.unsubscribe();
+  }
 }
