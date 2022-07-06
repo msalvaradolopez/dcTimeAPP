@@ -28,5 +28,6 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     this._menu.unsubscribe();
+    sessionStorage.clear();
   }
 }

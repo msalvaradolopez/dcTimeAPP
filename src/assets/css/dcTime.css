@@ -111,7 +111,7 @@ body {
   .botones-menu:hover, :focus{
     border-bottom: 4px solid transparent;
     border-bottom-color: red;
-}
+  }
 
 .content-catalogos {
     padding: 30px 20px;
@@ -290,4 +290,9 @@ td {
     font-size: 20px;
     cursor: pointer;
     margin: 10px;
+  }
+
+  .btn:hover, :focus {
+    background: black;
+    color: red;
   }

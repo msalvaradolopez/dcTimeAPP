@@ -1,0 +1,19 @@
+<div class="content-catalogos">
+  <div class="seccion-botones">
+    <input
+      style="display: none"
+      type="file"
+      (change)="getFile($event.target.files)"
+      #fileInput
+    />
+    <button class="btn" (click)="fileInput.click(); $event.preventDefault()">
+      Selección archivo
+    </button>
+    <button class="btn" (click)="guardar()">Guardar</button>
+  </div>
+  <div class="consulta-surtidores">
+    <video id="videoRef" #videoRef controls loop class="video">
+      <source [src]="_video" type="video/mp4" />
+    </video>
+  </div>
+</div>

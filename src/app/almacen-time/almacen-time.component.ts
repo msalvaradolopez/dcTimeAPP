@@ -19,6 +19,8 @@ export class AlmacenTimeComponent implements OnInit {
   constructor(private _servicios: ServiciosService, private _router: Router) {}
 
   ngOnInit(): void {
+    this._servicios.menuAccion(false);
+
     setInterval(() => this.getPedidos(), 10000);
     setInterval(() => {
       if (this.surtiendoList != null && this.surtiendoList.length > 0 )
@@ -82,7 +84,6 @@ export class AlmacenTimeComponent implements OnInit {
   }
   
   tiempoCorriendo(item: any) {
-    console.log("FechaSurtiendo : ", item.FechaSurtiendo);
     var fechaHoraAux = item.FechaSurtiendo.split(" ");
     var soloFechaAux = fechaHoraAux[0].split("-");
     var nuevaFechaAux = new Date(soloFechaAux[2], soloFechaAux[1], soloFechaAux[0], fechaHoraAux[1]);
@@ -97,8 +98,6 @@ export class AlmacenTimeComponent implements OnInit {
     var now = new Date()
         , elapsed = now.getTime()  - startDate.getTime() 
         , parts = [];
-
-    console.log("now : ", now);
 
     parts[0] = '' + Math.floor( elapsed / one_hour );
     parts[1] = '' + Math.floor( (elapsed % one_hour) / one_minute );

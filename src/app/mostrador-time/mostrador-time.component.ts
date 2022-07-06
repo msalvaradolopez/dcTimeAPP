@@ -10,8 +10,8 @@ import { ServiciosService } from '../servicios.service';
 export class MostradorTimeComponent implements OnInit {
   @ViewChild('videoRef',  { static: true, read: ElementRef }) videoRef: ElementRef;
 
-  porSurtirList: any[] = null;
-  surtiendoList: any[] = null;
+  porSurtirList: any[] = [];
+  surtiendoList: any[] = [];
   surtiendoListAux : any[] = null;
   cerradoList: any[] = null;
   nuevosItems: any[] = null;
@@ -23,6 +23,8 @@ export class MostradorTimeComponent implements OnInit {
   constructor(private _servicios: ServiciosService, private _router: Router) {}
 
   ngOnInit(): void {
+    this._servicios.menuAccion(false);
+
     setInterval(() => this.getPedidos(), 10000);
     setInterval(() => {
       if (this.surtiendoList != null || this.surtiendoList.length > 0 )
@@ -52,7 +54,6 @@ export class MostradorTimeComponent implements OnInit {
     }, error => {
 
     }, () => {
-      
       if (this.surtiendoList == null || this.surtiendoList.length == 0)
         this.surtiendoList = this.surtiendoListAux;
 

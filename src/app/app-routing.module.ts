@@ -8,6 +8,7 @@ import { BannerupdComponent } from './bannerupd/bannerupd.component';
 import { ConsultasComponent } from './consultas/consultas.component';
 import { MostradorTimeComponent } from './mostrador-time/mostrador-time.component';
 import { PopupComponent } from './popup/popup.component';
+import { PublicidadComponent } from './publicidad/publicidad.component';
 import { SurtidoresComponent } from './surtidores/surtidores.component';
 import { SurtidoresupdComponent } from './surtidoresupd/surtidoresupd.component';
 import { WebappComponent } from './webapp/webapp.component';
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path: "bannerupd", component: BannerupdComponent},
   {path: "bannerins", component: BannerinsComponent},
   {path: "bannerdel", component: BannerdelComponent},
-  {path: "surtidoresupd", component: SurtidoresupdComponent}
+  {path: "surtidoresupd", component: SurtidoresupdComponent},
+  {path: "publicidad", component: PublicidadComponent}
 ];
 
 @NgModule({
