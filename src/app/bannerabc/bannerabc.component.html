@@ -1,0 +1,21 @@
+<div class="content-catalogos">
+  <div class="seccion-botones">
+    <button class="btn" (click)="bannerIns()">Nuevo</button>
+  </div>
+  <div class="consulta-surtidores">
+    <table class="table-surtidores">
+      <thead>
+        <tr>
+          <th>bannerID</th>
+          <th>Texto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of bannerList" (click)="bannerUpd(item)">
+          <td>{{ item.bannerID }}</td>
+          <td>{{ item.texto }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

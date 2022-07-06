@@ -15,8 +15,15 @@ export class HeaderComponent implements OnInit, OnDestroy{
   constructor(private _servicios: ServiciosService) { }
 
   ngOnInit(): void {
+    let activar: boolean = Boolean(sessionStorage.getItem("activarMenu"));
+    if(activar != null)
+      this.activarMenu = activar;
+
     this._menu = this._servicios.menu$
-    .subscribe(resp => resp ?  this.activarMenu = true : this.activarMenu = false);
+    .subscribe(resp => {
+      resp ?  this.activarMenu = true : this.activarMenu = false;
+      sessionStorage.setItem("activarMenu", String(this.activarMenu) );
+    });
   }
 
   ngOnDestroy(): void {

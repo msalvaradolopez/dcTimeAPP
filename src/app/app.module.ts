@@ -14,6 +14,11 @@ import { BannerComponent } from './banner/banner.component';
 import { HeaderComponent } from './header/header.component';
 import { ConsultasComponent } from './consultas/consultas.component';
 import { SurtidoresComponent } from './surtidores/surtidores.component';
+import { BannerabcComponent } from './bannerabc/bannerabc.component';
+import { BannerupdComponent } from './bannerupd/bannerupd.component';
+import { BannerinsComponent } from './bannerins/bannerins.component';
+import { BannerdelComponent } from './bannerdel/bannerdel.component';
+import { SurtidoresupdComponent } from './surtidoresupd/surtidoresupd.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,12 @@ import { SurtidoresComponent } from './surtidores/surtidores.component';
     BannerComponent,
     HeaderComponent,
     ConsultasComponent,
-    SurtidoresComponent
+    SurtidoresComponent,
+    BannerabcComponent,
+    BannerupdComponent,
+    BannerinsComponent,
+    BannerdelComponent,
+    SurtidoresupdComponent
   ],
   imports: [
     BrowserModule,

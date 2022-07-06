@@ -1,0 +1,40 @@
+<div class="content-catalogos">
+  <div class="seccion-botones">
+    <input
+      style="display: none"
+      type="file"
+      (change)="getFile($event.target.files)"
+      #fileInput
+    />
+    <button
+      class="btn"
+      (click)="fileInput.click(); $event.preventDefault()"
+    >
+      Selección archivo
+    </button>
+    <button class="btn" (click)="guardarFoto()">Guardar</button>
+    <button class="btn" (click)="regresar()">Regresar</button>
+  </div>
+  <div class="consulta-surtidores">
+    <div class="catalogo-surtidores">
+      <div class="catalogo-labels">
+        <p>empID:</p>
+        <p>lastName:</p>
+        <p>firstName:</p>
+        <p>middleName:</p>
+      </div>
+      <div class="catalogo-inputs">
+        <p>{{ surtidorItem.empID }}</p>
+        <p>{{ surtidorItem.lastName }}</p>
+        <p>{{ surtidorItem.firstName }}</p>
+        <p>{{ surtidorItem.middleName }}</p>
+      </div>
+      <div
+        class="catalogo-surtidor-foto"
+        [ngStyle]="{
+          'background-image': 'url(\'' + surtidorItem.Foto + '\')'
+        }"
+      ></div>
+    </div>
+  </div>
+</div>

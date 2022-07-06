@@ -1,0 +1,36 @@
+<div class="content-catalogos">
+  <div class="seccion-botones">
+    <button class="btn" (click)="bannerGuardar()">Guardar</button>
+    <button class="btn" (click)="bannerRegresar()">Regresar</button>
+  </div>
+  <div class="consulta-surtidores">
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <label for="bannerID">bannerID: </label>
+          </td>
+          <td>
+            <input type="text" id="bannerID" [(ngModel)]="bannerID" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="text">texto: </label>
+          </td>
+          <td style="width: 100%">
+            <textarea
+              type="text"
+              id="texto"
+              [(ngModel)]="texto"
+              style="width: 100%"
+              rows="3"
+              cols="150"
+            >
+            </textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
