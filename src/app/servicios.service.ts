@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient  } from '@angular/common/http'
+import { HttpClient, HttpHeaders  } from '@angular/common/http'
 import { Subject, Observable } from 'rxjs';
 import { environment } from '../environments/environment'
 
@@ -19,7 +19,24 @@ export class ServiciosService {
     return this._http.post(this.apiURL + "/" + ws, param);
   }
 
+  wsGeneralFormData(ws: string, param: any): Observable<any> {
+    let headers = new HttpHeaders();
+ 
+    headers=headers.append('content-type','multipart/form-data')
+    headers=headers.append('Access-Control-Allow-Origin', '*')
+    
+
+
+    return this._http.post(this.apiURL + "/" + ws, param, { 'headers': headers });
+  }
+  
   menuAccion(accion: boolean) {
     this._menu.next(accion);
   }
+
+  public downloadFile(ws: string, param: any): Observable < Blob > {  
+        return this._http.get(this.apiURL + "/" + ws , {  
+            responseType: 'blob'  
+        });  
+    }  
 }

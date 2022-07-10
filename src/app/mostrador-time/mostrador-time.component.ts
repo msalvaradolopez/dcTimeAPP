@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiciosService } from '../servicios.service';
 
@@ -17,10 +17,11 @@ export class MostradorTimeComponent implements OnInit {
   nuevosItems: any[] = null;
   classBlink: string = "card";
   _video: string = "";
+  _archivo: any = null;
 
   elem: any;
 
-  constructor(private _servicios: ServiciosService, private _router: Router) {}
+  constructor(private _servicios: ServiciosService, private _router: Router, private _cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this._servicios.menuAccion(false);
@@ -31,10 +32,33 @@ export class MostradorTimeComponent implements OnInit {
         this.surtiendoList.forEach( item => this.tiempoCorriendo(item));
     } , 1000);
     this.getPedidos();
-    this._video = "assets/video/eléctrico_corporativo_2021_(corta) (720p).mp4";
-    // this.videoRef.nativeElement.muted = true;
-    this.videoRef.nativeElement.play();
-    // this.videoRef.nativeElement.muted = false;
+
+    this._servicios.downloadFile("getPublicidad", {claUN: "ALT"})
+    .subscribe(resp => {
+          let _this = this;
+        // Cogemos el primer archivo
+        var 
+          // Creamos la instancia de FileReader
+          reader = new FileReader(),
+          urlBase64;
+        // Os esperábais algo más complicado?
+        _this._archivo = resp;
+        reader.onload = function () {
+          urlBase64 = reader.result;
+          // _this.validaCaptura.IMAGEN = urlBase64;
+          _this._video = urlBase64;
+          // Hacer lo que se quiera con la url
+          _this.videoRef.nativeElement.src = _this._video;
+          _this.videoRef.nativeElement.load;
+          _this.videoRef.nativeElement.play();
+        }
+        reader.readAsDataURL(_this._archivo);
+        // need to run CD since file load runs outside of zone
+        this._cd.markForCheck();
+    }
+    , error => {}
+    , () => {
+    });
     
   }
 

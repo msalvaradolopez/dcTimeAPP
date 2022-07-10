@@ -12,13 +12,34 @@ export class PublicidadComponent implements OnInit {
   @ViewChild('videoRef') videoRef: ElementRef;
 
   _video: string = ""
+  _archivo: any = null;
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     // this._video = "assets/video/eléctrico_corporativo_2021_(corta) (720p).mp4";
-    this._servicios.wsGeneral("getParam", {claUN: "ALT"})
-    .subscribe(resp => this._video =  resp
+    this._servicios.downloadFile("getPublicidad", {claUN: "ALT"})
+    .subscribe(resp => {
+          let _this = this;
+        // Cogemos el primer archivo
+        var 
+          // Creamos la instancia de FileReader
+          reader = new FileReader(),
+          urlBase64;
+        // Os esperábais algo más complicado?
+        _this._archivo = resp;
+        reader.onload = function () {
+          urlBase64 = reader.result;
+          // _this.validaCaptura.IMAGEN = urlBase64;
+          _this._video = urlBase64;
+          // Hacer lo que se quiera con la url
+          _this.videoRef.nativeElement.src = _this._video;
+          _this.videoRef.nativeElement.load;
+        }
+        reader.readAsDataURL(_this._archivo);
+        // need to run CD since file load runs outside of zone
+        this._cd.markForCheck();
+    }
     , error => {}
     , () => {
       this.videoRef.nativeElement.src = this._video;
@@ -40,6 +61,7 @@ export class PublicidadComponent implements OnInit {
       reader = new FileReader(),
       urlBase64;
     // Os esperábais algo más complicado?
+    _this._archivo = archivo;
     reader.onload = function () {
       urlBase64 = reader.result;
       // _this.validaCaptura.IMAGEN = urlBase64;
@@ -54,8 +76,14 @@ export class PublicidadComponent implements OnInit {
   }
 
   guardar() {
-    this._servicios.wsGeneral("setParam", {claUN: "ALT", Video: this._video})
+    let lformData = new FormData();
+    lformData.append("File", this._archivo);
+    lformData.append("FileName", "xxx.mp4");
+
+    
+    this._servicios.wsGeneral("setPublicidad", lformData)
     .subscribe(resp => console.log(resp));
+    
   }
 
 }
