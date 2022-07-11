@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiciosService } from '../servicios.service';
+import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 
 @Component({
@@ -14,7 +15,7 @@ export class SurtidoresupdComponent implements OnInit {
   imagen: string = "";
 
 
-  constructor(private _servicios: ServiciosService, private _router: Router, private _cd: ChangeDetectorRef) { }
+  constructor(private _toastr: ToastrService, private _servicios: ServiciosService, private _router: Router, private _cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.surtidorItem = JSON.parse(sessionStorage.getItem("surtidorItem"));
@@ -26,7 +27,9 @@ export class SurtidoresupdComponent implements OnInit {
 
   guardarFoto() {
     this._servicios.wsGeneral("setFoto", {claUN: "ALT", empID: this.surtidorItem.empID, Foto: this.imagen})
-    .subscribe(resp => this._router.navigate(["/surtidores"]));
+    .subscribe(resp => this._router.navigate(["/surtidores"])
+    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Guardar imagen.")
+    ,() => this._toastr.success("Imagen guardada."));
   }
 
   loadIMG() {

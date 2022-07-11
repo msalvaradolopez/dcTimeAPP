@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiciosService } from '../servicios.service';
+import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 
 @Component({
@@ -14,7 +15,7 @@ export class PublicidadComponent implements OnInit {
   _video: string = ""
   _archivo: any = null;
 
-  constructor(private _servicios: ServiciosService, private _router: Router, private _cd: ChangeDetectorRef) { }
+  constructor(private _toastr: ToastrService, private _servicios: ServiciosService, private _router: Router, private _cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     // this._video = "assets/video/eléctrico_corporativo_2021_(corta) (720p).mp4";
@@ -40,7 +41,7 @@ export class PublicidadComponent implements OnInit {
         // need to run CD since file load runs outside of zone
         this._cd.markForCheck();
     }
-    , error => {}
+    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Publicidad.")
     , () => {
       this.videoRef.nativeElement.src = this._video;
       this.videoRef.nativeElement.load;
@@ -82,7 +83,9 @@ export class PublicidadComponent implements OnInit {
 
     
     this._servicios.wsGeneral("setPublicidad", lformData)
-    .subscribe(resp => console.log(resp));
+    .subscribe(resp => {}
+    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Publicidad.")
+    ,() => this._toastr.success("Publicidad guardado."));
     
   }
 

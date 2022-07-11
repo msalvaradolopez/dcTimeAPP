@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiciosService } from '../servicios.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-consultas',
@@ -29,7 +30,7 @@ export class ConsultasComponent implements OnInit {
   annioSelected: number = 0;
   mesSelected: number = 0;
 
-  constructor(private _servicios: ServiciosService) { }
+  constructor(private _toastr: ToastrService, private _servicios: ServiciosService) { }
 
   ngOnInit(): void {
 
@@ -60,7 +61,8 @@ export class ConsultasComponent implements OnInit {
         });
       
       });
-    });
+    }
+    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Consulta general."));
   }
 
   getConGeneralPorDia(fecha: string) {
@@ -73,7 +75,8 @@ export class ConsultasComponent implements OnInit {
     .subscribe(x => {
     this.conGeneralList = x;
     
-    });
+    }
+    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Consulta por dias."));
 
   }
 
@@ -83,7 +86,8 @@ export class ConsultasComponent implements OnInit {
     .subscribe(x => {
     this.conGeneralList = x;
     
-    });
+    }
+    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Consulta surtidor."));
 
   }
 
