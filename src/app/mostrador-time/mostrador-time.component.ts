@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef, Renderer2, AfterViewInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiciosService } from '../servicios.service';
 
@@ -7,8 +7,9 @@ import { ServiciosService } from '../servicios.service';
   templateUrl: './mostrador-time.component.html',
   styleUrls: ['./mostrador-time.component.css']
 })
-export class MostradorTimeComponent implements OnInit {
+export class MostradorTimeComponent implements OnInit, AfterViewInit {
   @ViewChild('videoRef',  { static: true, read: ElementRef }) videoRef: ElementRef;
+  @ViewChild("mostrador", { static: true, read: ElementRef }) mostrador: ElementRef
 
   porSurtirList: any[] = [];
   surtiendoList: any[] = [];
@@ -21,10 +22,16 @@ export class MostradorTimeComponent implements OnInit {
 
   elem: any;
 
-  constructor(private _servicios: ServiciosService, private _router: Router, private _cd: ChangeDetectorRef) {}
+  constructor(private _servicios: ServiciosService, private _router: Router, private _cd: ChangeDetectorRef, private _render: Renderer2) {}
+
+  globalInstance: any;    
 
   ngOnInit(): void {
     this._servicios.menuAccion(false);
+
+    setTimeout(() => {
+      this.mostrador.nativeElement.click();
+    }, 5000);
 
     setInterval(() => this.getPedidos(), 10000);
     setInterval(() => {
@@ -139,5 +146,16 @@ export class MostradorTimeComponent implements OnInit {
   
   }
 
+  ngAfterViewInit(): void {
+    this.globalInstance = this._render.listen(this.mostrador.nativeElement, 'click', () => {
+      if(this.mostrador.nativeElement.requestFullScreen) {
+        this.mostrador.nativeElement.requestFullScreen();
+      } else if(this.mostrador.nativeElement.mozRequestFullScreen) {
+        this.mostrador.nativeElement.mozRequestFullScreen();
+      } else if(this.mostrador.nativeElement.webkitRequestFullScreen) {
+        this.mostrador.nativeElement.webkitRequestFullScreen();
+      }
+  });
+  }
 
 }

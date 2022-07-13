@@ -27,8 +27,11 @@ export class BannerComponent implements OnInit {
         this.bannerListAux.forEach(renglon => {
             this.bannerList.push(renglon.texto);
             this.bannerList.push("");
-            if(textoLargo.length > 0)
+             if(textoLargo.length > 0) {
               this.bannerList.push("");
+              this.bannerList.push("");
+             }
+              
         });
       }
     }
