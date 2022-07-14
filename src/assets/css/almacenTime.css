@@ -99,6 +99,10 @@
     color: greenyellow;
 }
 
+.tiempo-titulo-surtidor {
+    font-size: large;
+}
+
 .foto-surtidor {
     display: flex;
     align-items: center;

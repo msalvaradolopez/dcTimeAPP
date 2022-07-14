@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef, Renderer2, AfterViewInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiciosService } from '../servicios.service';
 
@@ -7,7 +7,8 @@ import { ServiciosService } from '../servicios.service';
   templateUrl: './almacen-time.component.html',
   styleUrls: ['./almacen-time.component.css']
 })
-export class AlmacenTimeComponent implements OnInit {
+export class AlmacenTimeComponent implements OnInit, AfterViewInit {
+  @ViewChild("almacenRef", { static: true, read: ElementRef }) almacenRef: ElementRef
 
   porSurtirList: any[] = null;
   surtiendoList: any[] = null;
@@ -16,10 +17,16 @@ export class AlmacenTimeComponent implements OnInit {
 
   classBlink: string = "card";
 
-  constructor(private _servicios: ServiciosService, private _router: Router) {}
+  constructor(private _servicios: ServiciosService, private _router: Router, private _render: Renderer2) {}
+
+  globalInstance: any;  
 
   ngOnInit(): void {
     this._servicios.menuAccion(false);
+
+    setTimeout(() => {
+      this.almacenRef.nativeElement.click();
+    }, 5000);
 
     setInterval(() => this.getPedidos(), 10000);
     setInterval(() => {
@@ -109,5 +116,19 @@ export class AlmacenTimeComponent implements OnInit {
 
     item.tiempo = parts.join(':');
   
+  }
+
+  ngAfterViewInit(): void {
+    /*
+    this.globalInstance = this._render.listen(this.almacenRef.nativeElement, 'click', () => {
+      if(this.almacenRef.nativeElement.requestFullScreen) {
+        this.almacenRef.nativeElement.requestFullScreen();
+      } else if(this.almacenRef.nativeElement.mozRequestFullScreen) {
+        this.almacenRef.nativeElement.mozRequestFullScreen();
+      } else if(this.almacenRef.nativeElement.webkitRequestFullScreen) {
+        this.almacenRef.nativeElement.webkitRequestFullScreen();
+      }
+  });
+  */
   }
 }

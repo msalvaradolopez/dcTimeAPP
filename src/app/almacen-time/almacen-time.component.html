@@ -1,4 +1,4 @@
-<div class="grid-almacen">
+<div class="grid-almacen" #almacenRef>
   <div class="cols-mostrador">
     <p class="titulos">POR SURTIR</p>
     <hr />
@@ -29,8 +29,12 @@
           <p class="negrita">{{ item.Folio }}</p>
           <p>{{ item.Fecha | date: "dd/MM/yyyy HH:mm a" }}</p>
           <hr class="linea" />
-          <span class="tiempo-titulos">{{ item.NomSurtidor }}</span>
-          <p class="tiempo-titulos">{{ item.FechaSurtiendo | date: "HH:mm a" }}</p>
+          <span class="tiempo-titulos tiempo-titulo-surtidor"
+            >{{ item.NomSurtidor }}
+          </span>
+          <p class="tiempo-titulos">
+            {{ item.FechaSurtiendo | date: "HH:mm a" }}
+          </p>
           <p class="tiempo-titulos">{{ item.tiempo }}</p>
         </div>
 
@@ -51,7 +55,9 @@
           <p class="negrita">{{ item.Folio }}</p>
           <p>{{ item.Fecha | date: "dd/MM/yyyy HH:mm a" }}</p>
           <hr class="linea" />
-          <span class="tiempo-titulos">{{ item.NomSurtidor }}</span>
+          <span class="tiempo-titulos tiempo-titulo-surtidor">{{
+            item.NomSurtidor
+          }}</span>
           <p>
             Surtido:<span class="tiempo-titulos">{{
               item.FechaSurtiendo | date: "HH:mm a"
