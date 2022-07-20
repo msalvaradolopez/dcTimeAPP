@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiURL: "http://localhost/dcTimeAPI/api/values"
+  apiURL: "http://localhost/dcTimeAPI/api/values",
+  pathVideo: "C:/PROYECTOS/ELECTRICO/"
 };
 
 /*

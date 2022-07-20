@@ -17,7 +17,7 @@ export class MostradorTimeComponent implements OnInit, AfterViewInit {
   cerradoList: any[] = null;
   nuevosItems: any[] = null;
   classBlink: string = "card";
-  _video: string = "";
+  _video: string = "assets/video/Publicidad.mp4";
   _archivo: any = null;
 
   elem: any;
@@ -40,6 +40,7 @@ export class MostradorTimeComponent implements OnInit, AfterViewInit {
     } , 1000);
     this.getPedidos();
 
+    /*
     this._servicios.downloadFile("getPublicidad", {claUN: "ALT"})
     .subscribe(resp => {
           let _this = this;
@@ -66,7 +67,11 @@ export class MostradorTimeComponent implements OnInit, AfterViewInit {
     , error => {}
     , () => {
     });
-    
+    */
+
+    // this.fileToBase64 ();
+    // this.videoRef.nativeElement.mute = true;
+    this.videoRef.nativeElement.play();
   }
 
   getPedidos() {
@@ -156,6 +161,29 @@ export class MostradorTimeComponent implements OnInit, AfterViewInit {
         this.mostrador.nativeElement.webkitRequestFullScreen();
       }
   });
+  }
+
+  fileToBase64 () {
+    let _this = this;
+        // Cogemos el primer archivo
+        var 
+          // Creamos la instancia de FileReader
+          reader = new FileReader(),
+          urlBase64;
+        // Os esperábais algo más complicado?
+        _this._archivo = "assets/video/Publicidad.MP4";
+        reader.onload = function () {
+          urlBase64 = reader.result;
+          // _this.validaCaptura.IMAGEN = urlBase64;
+          _this._video = urlBase64;
+          // Hacer lo que se quiera con la url
+          _this.videoRef.nativeElement.src = _this._video;
+          _this.videoRef.nativeElement.load;
+          _this.videoRef.nativeElement.play();
+        }
+        reader.readAsDataURL(_this._archivo);
+        // need to run CD since file load runs outside of zone
+        this._cd.markForCheck();
   }
 
 }

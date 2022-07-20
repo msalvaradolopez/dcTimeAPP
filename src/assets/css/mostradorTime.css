@@ -5,11 +5,11 @@
 
     display: grid;
     grid-template-columns: 15% 15% 70%;
-    gap: 10px;
+    gap: 5px;
 }
 
 .folio {
-    font-size: larger;
+    font-size: large;
 }
 
 .video {

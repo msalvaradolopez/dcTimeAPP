@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http'
 import { Subject, Observable } from 'rxjs';
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
+/// import { Workbook } from 'exceljs';
+/// import * as fs from 'file-server';
+// declare var fs:any;
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +41,6 @@ export class ServiciosService {
         return this._http.get(this.apiURL + "/" + ws , {  
             responseType: 'blob'  
         });  
-    }  
+  }  
+
 }

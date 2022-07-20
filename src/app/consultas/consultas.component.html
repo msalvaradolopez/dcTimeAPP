@@ -25,10 +25,13 @@
         </option>
       </select>
     </div>
+    <button type="button" class="btn" (click)="exportToExcel()">
+      Exportar
+    </button>
   </div>
   <div class="content-indicadores">
     <div class="consultas-indicadores">
-      <table class="table-indicadores">
+      <table class="table-indicadores" #tablaPorDias id="tablaPorDias">
         <thead>
           <tr>
             <th>Fecha</th>
@@ -50,7 +53,7 @@
     </div>
 
     <div class="consultas-indicadores">
-      <table class="table-indicadores">
+      <table class="table-indicadores" id="tablaPorSurtidor">
         <thead>
           <tr>
             <th>Surtidor</th>
@@ -63,7 +66,7 @@
             *ngFor="let item of conPorSurtidorList"
             (click)="getConGeneralPorSurtidor(item.empID)"
           >
-            <td>{{ item.surtidor }}</td>
+            <td style="text-align: left;">{{ item.surtidor }}</td>
             <td>{{ item.porSurtir }}</td>
             <td>{{ item.surtiendo }}</td>
           </tr>
@@ -73,7 +76,7 @@
   </div>
   <div>
     <div class="consultas-detalle">
-      <table class="table-indicadores">
+      <table class="table-indicadores" id="tablaDetalle">
         <thead>
           <tr>
             <th>Folio</th>
@@ -91,15 +94,15 @@
         <tbody>
           <tr *ngFor="let item of conGeneralList">
             <td>{{ item.folio }}</td>
-            <td>{{ item.statusText }}</td>
+            <td style="text-align: left;">{{ item.statusText }}</td>
             <td style="width: 40px">{{ item.fecha | date: "dd/MM HH:mm" }}</td>
             <td>{{ item.porSurtir }}</td>
             <td>{{ item.fechaSurtiendo | date: "HH:mm" }}</td>
             <td>{{ item.surtiendo }}</td>
             <td>{{ item.fechaCerrado | date: "HH:mm" }}</td>
-            <td>{{ item.firstName }}</td>
-            <td>{{ item.socio }}</td>
-            <td>{{ item.SlpName }}</td>
+            <td style="text-align: left;">{{ item.firstName }}</td>
+            <td style="text-align: left;">{{ item.socio }}</td>
+            <td style="text-align: left;">{{ item.SlpName }}</td>
           </tr>
         </tbody>
       </table>
