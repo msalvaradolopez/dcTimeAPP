@@ -34,6 +34,9 @@ body {
   --safe-area-inset-bottom: 34px;
 }
 
+ul {
+  list-style-type: none;
+}
 
 .seccion-principal {
 
@@ -183,7 +186,11 @@ body {
   animation: float 5s infinite;
   font-size:smaller;
   margin: auto;
-  margin-top: 40px;
+  margin-top: 10px;
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 90vh;
+  min-height: 90vh;
 }
 
 tr {
@@ -295,4 +302,30 @@ td {
   .btn:hover, :focus {
     background: black;
     color: red;
+  }
+
+  .filtros-consultas {
+    
+    min-height: 100vh;
+    max-height: 100vh;
+    background: linear-gradient(rgb(255, 255, 255), rgba(99, 98, 98, 0.918)); 
+    padding: 20px;
+    overflow: auto;
+  }
+
+  .columnas-consultas {
+    display: grid;
+    grid-template-columns: 20% 80%;
+  }
+
+  .surtidores-filtro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    font-size:small;
+
+    overflow: hidden;
+    white-space: nowrap; /* Don't forget this one */
+    text-overflow: ellipsis;
   }

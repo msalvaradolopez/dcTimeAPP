@@ -1,5 +1,5 @@
-<div class="content-catalogos">
-  <div class="filtros">
+<div class="columnas-consultas">
+  <aside class="filtros-consultas">
     <h1>Filtros:</h1>
     <div class="select">
       <select
@@ -25,87 +25,80 @@
         </option>
       </select>
     </div>
-    <button type="button" class="btn" (click)="exportToExcel()">
-      Exportar
+    <button type="button" class="btn" (click)="getConsulta()">
+      <i class="fa-solid fa-rotate"></i>
     </button>
-  </div>
-  <div class="content-indicadores">
-    <div class="consultas-indicadores">
-      <table class="table-indicadores" #tablaPorDias id="tablaPorDias">
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>por Surtir</th>
-            <th>Surtiendo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="let item of conPorDiasList"
-            (click)="getConGeneralPorDia(item.fechaOrigen)"
-          >
-            <td>{{ item.fechaOrigen | date: "dd/MM/yyyy" }}</td>
-            <td>{{ item.porSurtir }}</td>
-            <td>{{ item.surtiendo }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <button type="button" class="btn" (click)="exportToExcel()">
+      <i class="fa-solid fa-file-excel"></i>
+    </button>
 
-    <div class="consultas-indicadores">
-      <table class="table-indicadores" id="tablaPorSurtidor">
-        <thead>
-          <tr>
-            <th>Surtidor</th>
-            <th>por Surtir</th>
-            <th>Surtiendo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="let item of conPorSurtidorList"
-            (click)="getConGeneralPorSurtidor(item.empID)"
-          >
-            <td style="text-align: left;">{{ item.surtidor }}</td>
-            <td>{{ item.porSurtir }}</td>
-            <td>{{ item.surtiendo }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div>
-    <div class="consultas-detalle">
-      <table class="table-indicadores" id="tablaDetalle">
-        <thead>
-          <tr>
-            <th>Folio</th>
-            <th>Estatus</th>
-            <th>Fecha</th>
-            <th>Mins por Surtir</th>
-            <th>Surtiendo</th>
-            <th>Mins Surtiendo</th>
-            <th>Cerrado</th>
-            <th>Surtidor</th>
-            <th>Cliente</th>
-            <th>Ventas</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of conGeneralList">
-            <td>{{ item.folio }}</td>
-            <td style="text-align: left;">{{ item.statusText }}</td>
-            <td style="width: 40px">{{ item.fecha | date: "dd/MM HH:mm" }}</td>
-            <td>{{ item.porSurtir }}</td>
-            <td>{{ item.fechaSurtiendo | date: "HH:mm" }}</td>
-            <td>{{ item.surtiendo }}</td>
-            <td>{{ item.fechaCerrado | date: "HH:mm" }}</td>
-            <td style="text-align: left;">{{ item.firstName }}</td>
-            <td style="text-align: left;">{{ item.socio }}</td>
-            <td style="text-align: left;">{{ item.SlpName }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <hr />
+    <input
+      type="checkbox"
+      name="check"
+      [(ngModel)]="_todosSurtidores"
+      id="todosSurtidores"
+      (change)="todosSurtidores($event)"
+    />
+    <label for="todosSurtidores"> Seleccionar todos </label>
+
+    <ul class="surtidores-filtro">
+      <li *ngFor="let item of conPorSurtidorList" style="max-width: 90%">
+        <input type="checkbox" name="check" [(ngModel)]="item.check" />
+        <span>
+          {{ item.surtidor }}
+        </span>
+      </li>
+    </ul>
+    <hr />
+    <input
+      type="checkbox"
+      name="check"
+      [(ngModel)]="_todosDias"
+      id="todosDias"
+      (change)="todosDias($event)"
+    />
+    <label for="todosDias"> Seleccionar todos </label>
+    <ul class="surtidores-filtro">
+      <li *ngFor="let item of conPorDiasList">
+        <input type="checkbox" name="check" [(ngModel)]="item.check" />
+        <span>
+          {{ item.fechaOrigen | date: "dd/MM/yyyy" }}
+        </span>
+      </li>
+    </ul>
+  </aside>
+
+  <div class="consultas-detalle">
+    <table class="table-indicadores" id="tablaDetalle">
+      <thead>
+        <tr>
+          <th>Folio</th>
+          <th>Estatus</th>
+          <th>Fecha</th>
+          <th>Mins por Surtir</th>
+          <th>Surtiendo</th>
+          <th>Mins Surtiendo</th>
+          <th>Cerrado</th>
+          <th>Surtidor</th>
+          <th>Cliente</th>
+          <th>Ventas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of conGeneralList">
+          <td>{{ item.folio }}</td>
+          <td style="text-align: left">{{ item.statusText }}</td>
+          <td style="width: 40px">{{ item.fecha | date: "dd/MM HH:mm" }}</td>
+          <td>{{ item.porSurtir }}</td>
+          <td>{{ item.fechaSurtiendo | date: "HH:mm" }}</td>
+          <td>{{ item.surtiendo }}</td>
+          <td>{{ item.fechaCerrado | date: "HH:mm" }}</td>
+          <td style="text-align: left">{{ item.firstName }}</td>
+          <td style="text-align: left">{{ item.socio }}</td>
+          <td style="text-align: left">{{ item.SlpName }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

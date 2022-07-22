@@ -40,6 +40,10 @@ export class ConsultasComponent implements OnInit {
 	fileName: string = 'SheetJS.xlsx';
 	ver: string = version;
 
+  //
+  _todosDias: boolean = true;
+  _todosSurtidores: boolean = true;
+
   constructor(private _toastr: ToastrService, private _servicios: ServiciosService) { }
 
   ngOnInit(): void {
@@ -56,43 +60,40 @@ export class ConsultasComponent implements OnInit {
   }
 
   getIndicadores() {
+    let diasList: number[] = [0];
+    let surtidoresList: number[] = [0];
 
     this._servicios.wsGeneral("getConPorDias", {claUN: "ALT", annio: this.annioSelected, mes: this.mesSelected})
     .subscribe(x => {
       this.conPorDiasList = x;
-      console.log(this.conPorDiasList);
       this._servicios.wsGeneral("getConPorSurtidor", {claUN: "ALT", annio: this.annioSelected, mes: this.mesSelected})
       .subscribe(x => {
       this.conPorSurtidorList = x;
-        this._servicios.wsGeneral("getConGeneral", {claUN: "ALT", annio: this.annioSelected, mes: this.mesSelected, dia: 0, empID: 0})
+        this._servicios.wsGeneral("getConGeneral", {claUN: "ALT", annio: this.annioSelected, mes: this.mesSelected, diasList: diasList, surtidoresList: surtidoresList})
         .subscribe(x => {
         this.conGeneralList = x;
         
         });
       
-      });
+      }, error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Consulta general.")
+      , () => this.conPorSurtidorList.forEach(x => x.check = true));
     }
-    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Consulta general."));
+    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Consulta general.")
+    , () => this.conPorDiasList.forEach(x => x.check = true));
   }
 
-  getConGeneralPorDia(fecha: string) {
-    var _fechaAux = new Date(fecha);
-    var _annio = _fechaAux.getFullYear();
-    var _dia = _fechaAux.getDate();
-    var _mes = _fechaAux.getMonth() + 1;
+  getConsulta() {
 
-    this._servicios.wsGeneral("getConGeneral", {claUN: "ALT", annio: _annio, mes: _mes, dia: _dia, empID: 0})
-    .subscribe(x => {
-    this.conGeneralList = x;
+    let dias = this.conPorDiasList.filter(x => x.check == true).map(x => {
+      var fechaAux = new Date(x.fechaOrigen);
+      return fechaAux.getDate();
+    });
+    let surtidores = this.conPorSurtidorList.filter(x => x.check == true).map(x => x.empID);
+
+    console.log(dias);
+    console.log(surtidores);
     
-    }
-    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Consulta por dias."));
-
-  }
-
-  getConGeneralPorSurtidor(empID: string) {
-    
-    this._servicios.wsGeneral("getConGeneral", {claUN: "ALT", annio: this.annioSelected, mes: this.mesSelected, dia: 0, empID: empID})
+    this._servicios.wsGeneral("getConGeneral", {claUN: "ALT", annio: this.annioSelected, mes: this.mesSelected, diasList: dias, surtidoresList: surtidores})
     .subscribe(x => {
     this.conGeneralList = x;
     
@@ -106,29 +107,24 @@ export class ConsultasComponent implements OnInit {
   }
 
   exportToExcel() {
+    const table1 = document.getElementById('tablaDetalle');
 
-    const table1 = document.getElementById('tablaPorDias');
-    const table2 = document.getElementById('tablaPorSurtidor');
-    const table3 = document.getElementById('tablaDetalle');
-
-    
     /* create new workbook */
     var workbook = utils.book_new();
 
-    /* convert table "table1" to worksheet named "Sheet1" */
+    /* convert table "table1" to worksheet named "Sheet2" */
     var sheet1 = utils.table_to_sheet(table1, { raw: true });
     utils.book_append_sheet(workbook, sheet1, "Sheet1");
-
-    /* convert table "table2" to worksheet named "Sheet2" */
-    var sheet2 = utils.table_to_sheet(table2, { raw: true });
-    utils.book_append_sheet(workbook, sheet2, "Sheet2");
-
-    /* convert table "table3" to worksheet named "Sheet2" */
-    var sheet3 = utils.table_to_sheet(table3, { raw: true });
-    utils.book_append_sheet(workbook, sheet3, "Sheet3");
 
 		/* save to file */
 		writeFile(workbook, this.fileName);
   }
 
+  todosDias(param: any) {
+    this.conPorDiasList.forEach(x => x.check = this._todosDias);
+  }
+
+  todosSurtidores(param: any) {
+    this.conPorSurtidorList.forEach(x => x.check = this._todosSurtidores);
+  }
 }
