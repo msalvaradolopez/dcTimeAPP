@@ -1,11 +1,11 @@
 .grid-almacen {
-    width: 90%;
+    width: 100%;
     margin: auto;
-    padding: 20px 0;
+    padding: 5px 0;
 
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 30px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
 }
 
 .cols-almacen {
@@ -101,6 +101,12 @@
 
 .tiempo-titulo-surtidor {
     font-size: large;
+    text-align: left;
+    width: 90%;
+    overflow: hidden;
+    white-space: nowrap; /* Don't forget this one */
+    text-overflow: ellipsis;
+    margin: auto;
 }
 
 .foto-surtidor {
@@ -131,4 +137,19 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.datos-tiempos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#tabla-datos-tiempos {
+    border-collapse: collapse;
+    width: 100%;
+}
+#tabla-datos-tiempos td, th{
+    padding: 0px;
+    border: 1px solid transparent;
 }

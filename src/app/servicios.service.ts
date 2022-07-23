@@ -19,13 +19,17 @@ export class ServiciosService {
   constructor(private _http: HttpClient) { }
 
   wsGeneral(ws: string, param: any): Observable<any> {
-    return this._http.post(this.apiURL + "/" + ws, param);
+    let headers = new HttpHeaders();
+
+    headers=headers.append('content-type','application/json')
+    headers=headers.append('Access-Control-Allow-Origin', '*')
+    return this._http.post(this.apiURL + "/" + ws, param, { 'headers': headers });
   }
 
   wsGeneralFormData(ws: string, param: any): Observable<any> {
     let headers = new HttpHeaders();
  
-    headers=headers.append('content-type','multipart/form-data')
+    headers=headers.append('content-type','application/json')
     headers=headers.append('Access-Control-Allow-Origin', '*')
     
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef, Renderer2, AfterViewInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiciosService } from '../servicios.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-almacen-time',
@@ -12,21 +13,18 @@ export class AlmacenTimeComponent implements OnInit, AfterViewInit {
 
   porSurtirList: any[] = null;
   surtiendoList: any[] = null;
+  entregadoList: any[] = null;
   surtiendoListAux : any[] = null;
   cerradoList: any[] = null;
 
   classBlink: string = "card";
 
-  constructor(private _servicios: ServiciosService, private _router: Router, private _render: Renderer2) {}
+  constructor(private _servicios: ServiciosService, private _router: Router, private _render: Renderer2, private _toastr: ToastrService) {}
 
   globalInstance: any;  
 
   ngOnInit(): void {
     this._servicios.menuAccion(false);
-
-    setTimeout(() => {
-      this.almacenRef.nativeElement.click();
-    }, 5000);
 
     setInterval(() => this.getPedidos(), 10000);
     setInterval(() => {
@@ -50,13 +48,16 @@ export class AlmacenTimeComponent implements OnInit, AfterViewInit {
                               return renglon;
                             })
                             .sort((a, b) => ( b.FechaSurtiendo > a.FechaSurtiendo  ? 1 : -1))
-      this.cerradoList = x.filter(datos => datos.Estatus == "3")
+      this.entregadoList = x.filter(datos => datos.Estatus == "3")
+                            .sort((a, b) => (b.FechaEntregado > a.FechaEntregado ? 1 : -1))
+                            .map(datos => {
+                              datos.class = "card-surtiendo"; 
+                              datos.Foto == null ? datos.Foto = 'assets/img/worker01.jpg' : datos.Foto; return  datos;});
+      this.cerradoList = x.filter(datos => datos.Estatus == "4")
                           .sort((a, b) => (b.FechaCerrado > a.FechaCerrado ? 1 : -1))
                           .map(datos => {datos.Foto == null ? datos.Foto = 'assets/img/worker01.jpg' : datos.Foto; return  datos;});
-      }, error => {
-
-      }, () => {
-        
+      }, error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Consulta general.")
+      , () => {  
         if (this.surtiendoList == null || this.surtiendoList.length == 0)
           this.surtiendoList = this.surtiendoListAux;
   
@@ -81,13 +82,30 @@ export class AlmacenTimeComponent implements OnInit, AfterViewInit {
     item.class = "card-surtiendo blink";
     setTimeout(() => {
       item.class = "card-surtiendo";
+      this.setEntregado(item);
+    }, 2000);
+  }
+
+  entregadoClick(item: any) {
+    item.class = "card-surtiendo blink";
+    setTimeout(() => {
+      item.class = "card-surtiendo";
       this.setCerrado(item);
     }, 2000);
   }
 
+  setEntregado(item: any) {
+    this._servicios.wsGeneral("setEntregado", {claUN: "ALT", folio: item.Folio, empID: item.empID})
+    .subscribe(x => {}
+      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Act Entrega.")
+      , () => this.getPedidos());
+  }
+
   setCerrado(item: any) {
     this._servicios.wsGeneral("setCerrado", {claUN: "ALT", folio: item.Folio, empID: item.empID})
-    .subscribe(x => this.getPedidos());
+    .subscribe(x => {}
+      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Act Cerrado.")
+      , () => this.getPedidos());
   }
   
   tiempoCorriendo(item: any) {
