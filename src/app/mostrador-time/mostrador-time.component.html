@@ -3,7 +3,7 @@
     <p class="titulos">SURTIENDO</p>
     <div class="cards-contenedor">
       <div *ngFor="let item of surtiendoList" [ngClass]="item.class">
-        <p class="negrita folio">{{ item.Folio }}</p>
+        <p class="negrita folio">{{ item.FolioCorto }}</p>
         <div class="tiempo">
           <p>{{ item.FechaSurtiendo | date: "shortTime" }}</p>
           <p>{{ item.tiempo }}</p>
@@ -12,11 +12,14 @@
     </div>
   </div>
   <div class="cols-mostrador">
-    <p class="titulos">CERRADO</p>
+    <p class="titulos">MOSTRADOR</p>
     <div class="cards-contenedor">
-      <div *ngFor="let item of cerradoList" class="card-mostrador">
-        <p class="negrita folio">{{ item.Folio }}</p>
-        <p>{{ item.FechaCerrado | date: "shortTime" }}</p>
+      <div *ngFor="let item of entregadoList" class="card-mostrador">
+        <p class="negrita folio">{{ item.FolioCorto }}</p>
+        <div class="tiempo">
+          <p>{{ item.FechaEntregado | date: "shortTime" }}</p>
+          <p>{{ item.tiempo }}</p>
+        </div>
       </div>
     </div>
   </div>

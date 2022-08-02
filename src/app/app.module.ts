@@ -23,6 +23,7 @@ import { BannerinsComponent } from './bannerins/bannerins.component';
 import { BannerdelComponent } from './bannerdel/bannerdel.component';
 import { SurtidoresupdComponent } from './surtidoresupd/surtidoresupd.component';
 import { PublicidadComponent } from './publicidad/publicidad.component';
+import { MostradorTabletComponent } from './mostrador-tablet/mostrador-tablet.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PublicidadComponent } from './publicidad/publicidad.component';
     BannerinsComponent,
     BannerdelComponent,
     SurtidoresupdComponent,
-    PublicidadComponent
+    PublicidadComponent,
+    MostradorTabletComponent
   ],
   imports: [
     BrowserModule,

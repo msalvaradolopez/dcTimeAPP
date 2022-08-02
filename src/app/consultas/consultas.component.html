@@ -76,10 +76,11 @@
           <th>Folio</th>
           <th>Estatus</th>
           <th>Fecha</th>
-          <th>Mins por Surtir</th>
+          <th>Por Surtir</th>
           <th>Surtiendo</th>
-          <th>Mins Surtiendo</th>
-          <th>Cerrado</th>
+          <th>Mostrador</th>
+          <th>Total</th>
+          <th>Articulo</th>
           <th>Surtidor</th>
           <th>Cliente</th>
           <th>Ventas</th>
@@ -91,9 +92,10 @@
           <td style="text-align: left">{{ item.statusText }}</td>
           <td style="width: 40px">{{ item.fecha | date: "dd/MM HH:mm" }}</td>
           <td>{{ item.porSurtir }}</td>
-          <td>{{ item.fechaSurtiendo | date: "HH:mm" }}</td>
           <td>{{ item.surtiendo }}</td>
-          <td>{{ item.fechaCerrado | date: "HH:mm" }}</td>
+          <td>{{ item.mostrador }}</td>
+          <td>{{ item.total }}</td>
+          <td style="text-align: left">{{ item.descArticulo }}</td>
           <td style="text-align: left">{{ item.firstName }}</td>
           <td style="text-align: left">{{ item.socio }}</td>
           <td style="text-align: left">{{ item.SlpName }}</td>

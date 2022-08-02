@@ -153,3 +153,13 @@
     padding: 0px;
     border: 1px solid transparent;
 }
+
+.grid-tablet {
+    width: 90%;
+    margin: auto;
+    padding: 5px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}

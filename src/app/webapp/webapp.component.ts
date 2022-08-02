@@ -18,15 +18,16 @@ export class WebappComponent implements OnInit {
       if (params.id == "M") {
         this._router.navigate(["/mostradorTime"]);
         this._servicios.menuAccion(false);
-      }
-      else if(params.id == "A") {
+      }else if(params.id == "A") {
         this._router.navigate(["/almacenTime"]);
         this._servicios.menuAccion(false);
-      }
-        else if(this._query.snapshot.queryParams.id == "ADM") {
+      }else if(params.id == "ADM") {
           this._router.navigate(["/consultas"]);
           this._servicios.menuAccion(true);
-        }
+      }else if(params.id == "T") {
+        this._router.navigate(["/almacenTablet"]);
+        this._servicios.menuAccion(false);
+    }
     });
 
     if(this._query.snapshot.queryParams.id == "M"){
@@ -40,6 +41,9 @@ export class WebappComponent implements OnInit {
     else if(this._query.snapshot.queryParams.id == "ADM") {
       this._router.navigate(["/consultas"]);
       this._servicios.menuAccion(true);
+    }else if(this._query.snapshot.queryParams.id == "T") {
+      this._router.navigate(["/mostradorTablet"]);
+      this._servicios.menuAccion(false);
     }
         
   }

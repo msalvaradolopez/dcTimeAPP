@@ -6,6 +6,7 @@ import { BannerdelComponent } from './bannerdel/bannerdel.component';
 import { BannerinsComponent } from './bannerins/bannerins.component';
 import { BannerupdComponent } from './bannerupd/bannerupd.component';
 import { ConsultasComponent } from './consultas/consultas.component';
+import { MostradorTabletComponent } from './mostrador-tablet/mostrador-tablet.component';
 import { MostradorTimeComponent } from './mostrador-time/mostrador-time.component';
 import { PopupComponent } from './popup/popup.component';
 import { PublicidadComponent } from './publicidad/publicidad.component';
@@ -26,7 +27,8 @@ const routes: Routes = [
   {path: "bannerins", component: BannerinsComponent},
   {path: "bannerdel", component: BannerdelComponent},
   {path: "surtidoresupd", component: SurtidoresupdComponent},
-  {path: "publicidad", component: PublicidadComponent}
+  {path: "publicidad", component: PublicidadComponent},
+  {path: "mostradorTablet", component: MostradorTabletComponent}
 ];
 
 @NgModule({

@@ -1,7 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiciosService } from '../servicios.service';
 import { ToastrService } from 'ngx-toastr';
+import { ComponentFixtureNoNgZone } from '@angular/core/testing';
 declare var $: any;
 
 @Component({
@@ -13,12 +14,13 @@ export class SurtidoresupdComponent implements OnInit {
 
   surtidorItem: any = null;
   imagen: string = "";
-
+  _imagenOld: string = "";
 
   constructor(private _toastr: ToastrService, private _servicios: ServiciosService, private _router: Router, private _cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.surtidorItem = JSON.parse(sessionStorage.getItem("surtidorItem"));
+    this._imagenOld = this.surtidorItem.Foto;
   }
 
   regresar() {
@@ -26,10 +28,22 @@ export class SurtidoresupdComponent implements OnInit {
   }
 
   guardarFoto() {
-    this._servicios.wsGeneral("setFoto", {claUN: "ALT", empID: this.surtidorItem.empID, Foto: this.imagen})
-    .subscribe(resp => this._router.navigate(["/surtidores"])
-    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Guardar imagen.")
-    ,() => this._toastr.success("Imagen guardada."));
+    if(this.imagen == ""){
+      this._toastr.error("Se requiere una imagen.");
+      return;
+    }
+
+    let recursoToCall = "insFoto";
+
+    if(this._imagenOld == "assets/img/worker01.jpg")
+      recursoToCall = "insFoto";
+    else 
+      recursoToCall = "updFoto";
+
+      this._servicios.wsGeneral(recursoToCall, {claUN: "ALT", empID: this.surtidorItem.empID, Foto: this.imagen})
+      .subscribe(resp => this._router.navigate(["/surtidores"])
+      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Guardar imagen.")
+      ,() => this._toastr.success("Imagen guardada."));
   }
 
   loadIMG() {

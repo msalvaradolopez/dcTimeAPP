@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 import { ServiciosService } from '../servicios.service';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
-  selector: 'app-almacen-time',
-  templateUrl: './almacen-time.component.html',
-  styleUrls: ['./almacen-time.component.css']
+  selector: 'app-mostrador-tablet',
+  templateUrl: './mostrador-tablet.component.html',
+  styleUrls: ['./mostrador-tablet.component.css']
 })
-export class AlmacenTimeComponent implements OnInit, AfterViewInit {
-  @ViewChild("almacenRef", { static: true, read: ElementRef }) almacenRef: ElementRef
+export class MostradorTabletComponent implements OnInit {
 
   porSurtirList: any[] = null;
   surtiendoList: any[] = null;
@@ -20,18 +20,14 @@ export class AlmacenTimeComponent implements OnInit, AfterViewInit {
 
   classBlink: string = "card";
 
-  constructor(private _servicios: ServiciosService, private _router: Router, private _render: Renderer2, private _toastr: ToastrService) {}
 
-  globalInstance: any;  
+  constructor(private _servicios: ServiciosService, private _router: Router, private _render: Renderer2, private _toastr: ToastrService) {}
 
   ngOnInit(): void {
     this._servicios.menuAccion(false);
 
     setInterval(() => this.getPedidos(), 10000);
     setInterval(() => {
-      if (this.surtiendoList != null && this.surtiendoList.length > 0 )
-        this.surtiendoList.forEach( item => this.tiempoCorriendo(item));
-      
       if (this.entregadoList != null && this.entregadoList.length > 0 )
         this.entregadoList.forEach( item => this.tiempoEntregado(item));
     } , 1000);
@@ -86,22 +82,6 @@ export class AlmacenTimeComponent implements OnInit, AfterViewInit {
       });
   }
 
-  popUp(item: any) {
-    sessionStorage.setItem("folio", item.Folio);
-    sessionStorage.setItem("socio", item.Socio);
-    sessionStorage.setItem("fecha", item.Fecha);
-    sessionStorage.setItem("slpName", item.SlpName);
-    this._router.navigate(["/popup"]);
-  }
-
-  surtiendoClick(item: any) {
-    item.class = "card-surtiendo blink";
-    setTimeout(() => {
-      item.class = "card-surtiendo";
-      this.setEntregado(item);
-    }, 2000);
-  }
-
   entregadoClick(item: any) {
     item.class = "card-surtiendo blink";
     setTimeout(() => {
@@ -122,34 +102,6 @@ export class AlmacenTimeComponent implements OnInit, AfterViewInit {
     .subscribe(x => {}
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Act Cerrado.")
       , () => this.getPedidos());
-  }
-  
-  tiempoCorriendo(item: any) {
-    var fechaHoraAux = item.FechaSurtiendo.split(" ");
-    var soloFechaAux = fechaHoraAux[0].split("-");
-    var nuevaFechaAux = new Date(soloFechaAux[2], soloFechaAux[1], soloFechaAux[0], fechaHoraAux[1]);
-
-    var defaults = {}
-      , one_second = 1000
-      , one_minute = one_second * 60
-      , one_hour = one_minute * 60
-      , one_day = one_hour * 24
-      , startDate = new Date(item.FechaSurtiendo);
-
-    var now = new Date()
-        , elapsed = now.getTime()  - startDate.getTime() 
-        , parts = [];
-
-    parts[0] = '' + Math.floor( elapsed / one_hour );
-    parts[1] = '' + Math.floor( (elapsed % one_hour) / one_minute );
-    parts[2] = '' + Math.floor( ( (elapsed % one_hour) % one_minute ) / one_second );
-
-    parts[0] = (parts[0].length == 1) ? '0' + parts[0] : parts[0];
-    parts[1] = (parts[1].length == 1) ? '0' + parts[1] : parts[1];
-    parts[2] = (parts[2].length == 1) ? '0' + parts[2] : parts[2];
-
-    item.tiempo = parts.join(':');
-  
   }
 
   tiempoEntregado(item: any) {
@@ -180,17 +132,5 @@ export class AlmacenTimeComponent implements OnInit, AfterViewInit {
   
   }
 
-  ngAfterViewInit(): void {
-    /*
-    this.globalInstance = this._render.listen(this.almacenRef.nativeElement, 'click', () => {
-      if(this.almacenRef.nativeElement.requestFullScreen) {
-        this.almacenRef.nativeElement.requestFullScreen();
-      } else if(this.almacenRef.nativeElement.mozRequestFullScreen) {
-        this.almacenRef.nativeElement.mozRequestFullScreen();
-      } else if(this.almacenRef.nativeElement.webkitRequestFullScreen) {
-        this.almacenRef.nativeElement.webkitRequestFullScreen();
-      }
-  });
-  */
-  }
+
 }

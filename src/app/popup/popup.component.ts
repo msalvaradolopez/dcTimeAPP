@@ -15,6 +15,7 @@ export class PopupComponent implements OnInit, OnDestroy {
   _folio: string = "";
   _cliente: string = "";
   _fecha: string = "";
+  _slpName: string = "";
   _reloj: any = null;
 
   constructor(private _servicios: ServiciosService, private _router: Router) {}
@@ -25,7 +26,7 @@ export class PopupComponent implements OnInit, OnDestroy {
         this._folio = sessionStorage.getItem("folio");
         this._cliente = sessionStorage.getItem("socio");
         this._fecha = sessionStorage.getItem("fecha");
-        console.log(this._folio);
+        this._slpName = sessionStorage.getItem("slpName");
         this._mensaje = "texto";
         this._showPopup = true;
         // setTimeout(() => this._showPopup = false, 3000)
@@ -33,9 +34,8 @@ export class PopupComponent implements OnInit, OnDestroy {
   }
 
   setSurtiendo(empID: string) {
-    this._servicios.wsGeneral("setSurtiendo", {claUN: "ALT", folio: this._folio, empID: empID})
+    this._servicios.wsGeneral("setSurtiendo", {claUN: "ALT", folio: this._folio, socio: this._cliente, fecha: this._fecha, SlpName: this._slpName, empID: empID})
     .subscribe(x => {
-      console.log(x);
       this._router.navigate(["/almacenTime"]);
     });
   }

@@ -12,9 +12,13 @@ export class MostradorTimeComponent implements OnInit, AfterViewInit {
   @ViewChild("mostrador", { static: true, read: ElementRef }) mostrador: ElementRef
 
   porSurtirList: any[] = [];
+
   surtiendoList: any[] = [];
   surtiendoListAux : any[] = null;
-  cerradoList: any[] = null;
+
+  entregadoList: any[] = null;
+  entregadoListAux: any[] = null;
+
   nuevosItems: any[] = null;
   classBlink: string = "card";
   _video: string = "assets/video/Publicidad.mp4";
@@ -37,7 +41,11 @@ export class MostradorTimeComponent implements OnInit, AfterViewInit {
     setInterval(() => {
       if (this.surtiendoList != null || this.surtiendoList.length > 0 )
         this.surtiendoList.forEach( item => this.tiempoCorriendo(item));
+
+      if (this.entregadoList != null && this.entregadoList.length > 0 )
+        this.entregadoList.forEach( item => this.tiempoEntregado(item));
     } , 1000);
+
     this.getPedidos();
 
     /*
@@ -83,24 +91,65 @@ export class MostradorTimeComponent implements OnInit, AfterViewInit {
       this.surtiendoListAux = x.filter(datos => datos.Estatus == "2")
                               .map(renglon => {renglon.class = "card-mostrador"; renglon.tiempo = "        "; return renglon;})
                               .sort((a, b) => ( b.FechaSurtiendo > a.FechaSurtiendo  ? 1 : -1))
-                              .map(datos => {datos.Foto == null ? datos.Foto = 'assets/img/worker01.jpg' : datos.Foto; return  datos;});
-      this.cerradoList = x.filter(datos => datos.Estatus == "3")
-                              .sort((a, b) => (b.FechaCerrado > a.FechaCerrado ? 1 : -1))
-                              .map(datos => {datos.Foto == null ? datos.Foto = 'assets/img/worker01.jpg' : datos.Foto; return  datos;});
+                              .map(datos => {
+                                datos.Foto == null ? datos.Foto = 'assets/img/worker01.jpg' : datos.Foto; 
+                                datos.FolioCorto = datos.Folio.substring(6, 14);
+                                return  datos;});
+      this.entregadoListAux = x.filter(datos => datos.Estatus == "3")
+                              .sort((a, b) => (b.FechaEntregado > a.FechaEntregado ? 1 : -1))
+                              .map(datos => {
+                                datos.Foto == null ? datos.Foto = 'assets/img/worker01.jpg' : datos.Foto; 
+                                datos.FolioCorto = datos.Folio.substring(6, 14);
+                                datos.tiempo = "        ";
+                                return  datos;});
     }, error => {
 
     }, () => {
+      // SURTIENDO - COLUMNA
       if (this.surtiendoList == null || this.surtiendoList.length == 0)
-        this.surtiendoList = this.surtiendoListAux;
+      this.surtiendoList = this.surtiendoListAux;
 
-      let itemsNuevos = this.surtiendoListAux.filter(o1 => !this.surtiendoList.some(o2 => o2.Folio == o1.Folio));
-      let itemsCerrados = this.surtiendoList.filter(o1 => !this.surtiendoListAux.some(o2 => o2.Folio == o1.Folio));
-    
-      if(itemsNuevos.length > 0 || itemsCerrados.length > 0)
-        this.surtiendoList = this.surtiendoListAux;
+    let itemsNuevos01 = this.surtiendoListAux.filter(o1 => !this.surtiendoList.some(o2 => o2.Folio == o1.Folio));
+    let itemsCerrados01 = this.surtiendoList.filter(o1 => !this.surtiendoListAux.some(o2 => o2.Folio == o1.Folio));
+  
+    if(itemsNuevos01.length > 0 || itemsCerrados01.length > 0) {
+      this.surtiendoList = this.surtiendoListAux;
+      if(itemsNuevos01.length > 0){
+        let items: any;
+        items = this.surtiendoList.filter(o1 => itemsNuevos01.some(o2 => o2.Folio == o1.Folio));
+        items.forEach(item => {
+          item.class = "card-mostrador blink";
+          setTimeout(() => {
+            item.class = "card-mostrador";
+        }, 2000);
+        });
+      }
+        
+    }
+      
 
-      this.nuevoItem();
-    });
+    // ENTREGADO - COLUMNA
+    if (this.entregadoList == null || this.entregadoList.length == 0)
+    this.entregadoList = this.entregadoListAux;
+
+    let itemsNuevos02 = this.entregadoListAux.filter(o1 => !this.entregadoList.some(o2 => o2.Folio == o1.Folio));
+    let itemsCerrados02 = this.entregadoList.filter(o1 => !this.entregadoListAux.some(o2 => o2.Folio == o1.Folio));
+  
+    if(itemsNuevos02.length > 0 || itemsCerrados02.length > 0)
+      this.entregadoList = this.entregadoListAux;
+      if(itemsNuevos02.length > 0){
+        let items: any;
+        items = this.entregadoList.filter(o1 => itemsNuevos02.some(o2 => o2.Folio == o1.Folio));
+        items.forEach(item => {
+          item.class = "card-mostrador blink";
+          setTimeout(() => {
+            item.class = "card-mostrador";
+        }, 2000);
+        });
+      }
+
+
+  });
   }
 
   nuevoItem() {
@@ -139,6 +188,34 @@ export class MostradorTimeComponent implements OnInit, AfterViewInit {
         , parts = [];
 
     // console.log("now :", now);
+    parts[0] = '' + Math.floor( elapsed / one_hour );
+    parts[1] = '' + Math.floor( (elapsed % one_hour) / one_minute );
+    parts[2] = '' + Math.floor( ( (elapsed % one_hour) % one_minute ) / one_second );
+
+    parts[0] = (parts[0].length == 1) ? '0' + parts[0] : parts[0];
+    parts[1] = (parts[1].length == 1) ? '0' + parts[1] : parts[1];
+    parts[2] = (parts[2].length == 1) ? '0' + parts[2] : parts[2];
+
+    item.tiempo = parts.join(':');
+  
+  }
+
+  tiempoEntregado(item: any) {
+    var fechaHoraAux = item.FechaEntregado.split(" ");
+    var soloFechaAux = fechaHoraAux[0].split("-");
+    var nuevaFechaAux = new Date(soloFechaAux[2], soloFechaAux[1], soloFechaAux[0], fechaHoraAux[1]);
+
+    var defaults = {}
+      , one_second = 1000
+      , one_minute = one_second * 60
+      , one_hour = one_minute * 60
+      , one_day = one_hour * 24
+      , startDate = new Date(item.FechaEntregado);
+
+    var now = new Date()
+        , elapsed = now.getTime()  - startDate.getTime() 
+        , parts = [];
+
     parts[0] = '' + Math.floor( elapsed / one_hour );
     parts[1] = '' + Math.floor( (elapsed % one_hour) / one_minute );
     parts[2] = '' + Math.floor( ( (elapsed % one_hour) % one_minute ) / one_second );
