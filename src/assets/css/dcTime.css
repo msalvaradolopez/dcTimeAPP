@@ -100,6 +100,24 @@ ul {
     flex-direction: row;
     justify-content:flex-end;
     align-items: center;
+    height: 100%;
+  }
+
+  .subMenu {
+    display: flex;
+    flex-direction: column;
+
+    background-color: black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.774), 0 2px 10px rgba(0, 0, 0, 0.404);
+
+    width: 150px;
+    height: 100px;
+    top: 55px;
+    position: absolute;
+
+    visibility: hidden;
+
+    z-index: 2;
   }
 
   .botones-menu {
@@ -328,4 +346,12 @@ td {
     overflow: hidden;
     white-space: nowrap; /* Don't forget this one */
     text-overflow: ellipsis;
+  }
+
+  .item{
+    padding: 10px;
+  }
+
+  .menu li:hover .subMenu {
+    visibility: visible;
   }

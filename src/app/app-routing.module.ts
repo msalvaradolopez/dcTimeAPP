@@ -5,6 +5,7 @@ import { BannerabcComponent } from './bannerabc/bannerabc.component';
 import { BannerdelComponent } from './bannerdel/bannerdel.component';
 import { BannerinsComponent } from './bannerins/bannerins.component';
 import { BannerupdComponent } from './bannerupd/bannerupd.component';
+import { ConsultaPedidosComponent } from './consulta-pedidos/consulta-pedidos.component';
 import { ConsultasComponent } from './consultas/consultas.component';
 import { MostradorTabletComponent } from './mostrador-tablet/mostrador-tablet.component';
 import { MostradorTimeComponent } from './mostrador-time/mostrador-time.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: "popup", component: PopupComponent},
   {path: "webapp", component: WebappComponent},
   {path: "consultas", component: ConsultasComponent},
+  {path: "consultaPedidos", component: ConsultaPedidosComponent},
   {path: "surtidores", component: SurtidoresComponent},
   {path: "bannerabc", component: BannerabcComponent},
   {path: "bannerupd", component: BannerupdComponent},
